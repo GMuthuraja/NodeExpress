@@ -1,0 +1,81 @@
+<html>
+
+<head>
+    <title>
+        Web API - Consume
+    </title>
+    <script>
+        //Get method
+        function get() {
+            fetch("http://localhost:4000/api/students")
+                .then(response => response.json())
+                .then(res => {
+                    console.log(res);
+                }).catch(error => {
+                    console.log(error);
+                });
+        }
+
+        var req_param_post = {
+            method: 'POST',
+            body: JSON.stringify({
+                name: "muthuraja",
+                roll: "1520",
+                present: 1
+            }),
+            headers: { 'Content-Type': 'application/json' }
+        };
+
+        //Post method
+        function post() {
+            fetch("http://localhost:4000/api/students", req_param_post)
+                .then(response => response.json())
+                .then(res => {
+                    console.log(res);
+                }).catch(error => {
+                    console.log(error);
+                });
+        }
+
+        var req_param_put = {
+            method: 'PUT',
+            body: JSON.stringify({
+                name: "muthu",
+                roll: "0000",
+                present: 1
+            }),
+            headers: { 'Content-Type': 'application/json' }
+        };
+
+        //Put method
+        function update() {
+            fetch("http://localhost:4000/api/students/64f878acb41e18c2234fad37", req_param_put)
+                .then(response => response.json())
+                .then(res => {
+                    console.log(res);
+                }).catch(error => {
+                    console.log(error);
+                });
+        }
+
+        //Delete method
+        function remove() {
+            fetch("http://localhost:4000/api/students/64ff063d479c24778d05d2e3", { method: 'DELETE' })
+                .then(response => response.json())
+                .then(res => {
+                    console.log(res);
+                }).catch(error => {
+                    console.log(error);
+                });
+        }
+    </script>
+</head>
+
+<body>
+    <button onclick="get()">Get</button>
+    <button onclick="post()">Save</button>
+    <button onclick="update()">Update</button>
+    <button onclick="remove()">Delete</button>
+</body>
+
+</html>
