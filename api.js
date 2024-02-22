@@ -5,7 +5,7 @@ const Student = require('./model');
 router.get('/students', (req, res) => {
     res.setTimeout(3000, () => res.status(500).send({ status: res.statusCode, message: 'timeout' }));
     Student.find({}).then(students => {
-        if (students.length == 18) {
+        if (students.length >= 0) {
             res.send(students);
         } else {
             res.send({ status: 400, message: 'No data found!' })

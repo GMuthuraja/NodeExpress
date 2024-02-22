@@ -14,23 +14,33 @@ app.use(cors()); //works for get method only
 //     res.setHeader('Access-Control-Allow-Credentials', true);
 //     next();
 // });
-app.use('/api', require('./api'));
 
-
-let server = app.listen(4000, (res) => {
-    console.log('Listening on port 4000')
+app.use((req, res, next) => { //middleware called before any request
+    console.log("middleware before");
+    next();
 });
 
-server.setTimeout(2000);
+app.use('/api', require('./api'));
+
+//An error handling middleware
+app.use((err, req, res, next) => {
+    res.status(404);
+    res.send("Oops, something went wrong.")
+});
+
+app.get('*', (req, res) => { // for invalid get/post method
+    res.send('Sorry, this is an invalid URL.');
+});
+
+let server = app.listen(4000, () => {
+    console.log('Listening on port 4000');
+});
 
 mongoose.connect('mongodb://127.0.0.1:27017/mydb').then(() => {
-    console.log('Database connected!')
+    console.log('Database connected!');
 }).catch(error => {
     console.log(error);
 });
-
-
-
 
 
 
